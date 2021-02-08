@@ -1,0 +1,6 @@
+git log
+git remove
+git ignore
+git push, pull, fetch
+git add .
+git commit -m "mensagem..."
