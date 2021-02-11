@@ -1,0 +1,25 @@
+h1{
+    font-family: sans-serif;
+    text-align: center;
+    text-decoration:underline;
+}
+p{
+    font-weight: 600;
+    font-size: 3em;
+    font-style:italic;
+  
+}
+body{
+    font-size: 16px;
+    line-height: 40px;    
+}
+
+.ll1{
+        background-color: blue;
+}
+.ll2{
+        background-color:brown
+}
+.ll3{
+        background-color:red;
+}
