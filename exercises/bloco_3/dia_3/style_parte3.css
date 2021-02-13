@@ -1,0 +1,15 @@
+
+h1, p{
+  text-align: center;  
+
+}
+
+.site:hover{
+    background-color: blue;
+    font-style: italic;
+    list-style: 'none';
+    
+}
+.gremio{
+    list-style: 'none';
+}
