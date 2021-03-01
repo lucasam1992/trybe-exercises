@@ -15,23 +15,16 @@ console.log(values);
 //Ainda falta fazer o numero 27 multiplicar por 2 e colocar no final do array
 
 let values = [5, 9, 3, 19, 70, 8, 100, 2, 35, 27];
-let auxiliar=[];
+let calculo=[];
 
-for (let i = 1; i < values.length; i++) {
-  for (let j = 0; j < i; j++) {
-    
-    calculo=values[i]*values[j];
-    
-    if(i==values.length){
-      auxiliar[values.length]=values[values.length-1]*2;
-      auxiliar.unshift(calculo);
-    }
+for (let i = 0; i < values.length; i++) {
+  if(i==values.length-1){
+   calculo.push(values[i]*2);
+  }else{
+    calculo.push(values[i]*values[i+1]);
   }
-  
-  
-  console.log(auxiliar);
 }
-
+console.log(calculo);
 
 
 
