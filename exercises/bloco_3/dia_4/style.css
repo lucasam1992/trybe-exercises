@@ -1,0 +1,125 @@
+* {
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: rgb(74, 95, 95);
+  }
+
+  h1{
+    padding: 25px 300px;
+    color: rgb(21, 197, 182);
+  }
+
+   h3 {
+    margin:0 0 20px;
+   
+  }
+  h2{
+    margin:20px 0px 15px 20px;
+  }
+
+
+  p {
+    margin-bottom: 5px;
+  }
+
+  .navegacao {
+    background-color: rgb(19, 146, 61);
+    padding: 0 300px;
+  }
+  
+  .navegacao ul {
+    padding: 5px 0;
+    background-color: rgb(19, 146, 61);
+  }
+  
+  .navegacao li {
+    margin-right: 140px;
+    list-style-type: none;
+    display: inline;  
+  }
+  
+  .navegacao li a {
+    color: white;
+    text-decoration: none;
+    background-color: rgb(19, 146, 61);
+  }
+
+  
+aside{
+    width: 48%;
+    padding-left: 15px;
+    margin-left: 15px;
+    float: right;
+    font-style: italic;   
+}
+
+.lateral{
+    background-color:lightcoral; 
+}
+
+.lateral-dentro{
+    background-color:lightcoral; 
+    padding-bottom: 100px;
+
+}
+
+.late{
+    background-color:lightcoral; 
+}
+
+.most-read{
+    background-color:lightcoral; 
+}
+
+.artigo{
+    max-width: 1200px;
+    margin: auto;
+    flex-grow: 1;
+    width:100%;   
+    
+}
+
+.info-geral{
+    padding: 15px;
+    width: 50%;
+    background-color:red;
+    margin:0px 0px 20px;
+}
+
+.interessante1{
+    padding: 15px;
+    width: 50%;
+    background-color:greenyellow;
+    margin:0px 0px 20px;
+}
+
+
+.interessante2{
+    padding: 15px;
+    width: 50%;
+    background-color:chocolate;
+    margin:0px 0px 20px;
+    
+}
+
+.referencias{
+    padding: 15px;
+    display: inline-block;
+    width: 50%; 
+    background-color:crimson;
+    margin:0px 0px 20px;
+}
+
+footer{
+    position: absolute;
+    left: 350px;
+    color:lightcoral;
+    margin-top:20px
+}
+
+.info-geral-color{
+    background-color:red;
+}
+
+
