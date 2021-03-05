@@ -71,26 +71,23 @@ for(let index=0; index<3;index+=1){
 tagH1.className = 'tittle';
 
 //2
-tagsH3 = document.getElementsByTagName('h3');
-for(let index =0;index<3;index+=1){
-tagsH3[index].className = 'descripton';
-}
+ tagsH3 = document.getElementsByTagName('h3');
+ for(let index =0;index<3;index+=1){
+ tagsH3[index].className = 'descripton';
+ }
 
-//3
-left_content_div= document.getElementsByClassName('left-content')[0];
-main_content_div.removeChild(left_content_div);
-
-//4
-right_content_div = document.getElementsByClassName('right-content')[0];
-right_content_div.style.marginRight = 'auto';
-
-//5
-center_content_div = document.getElementsByClassName('center-content')[0];
-center_content_div.parentNode.style.backgroundColor='green';
-
-//6
-lista_nao_ordenada.lastChild.remove();
-lista_nao_ordenada.lastChild.remove(); 
+ //3
+ left_content_div= document.getElementsByClassName('left-content')[0];
+ main_content_div.removeChild(left_content_div)
+ //4
+ right_content_div = document.getElementsByClassName('right-content')[0];
+ right_content_div.style.marginRight = 'auto'
+ //5
+ center_content_div = document.getElementsByClassName('center-content')[0];
+ center_content_div.parentNode.style.backgroundColor='green'
+ //6
+ lista_nao_ordenada.lastChild.remove();
+ lista_nao_ordenada.lastChild.remove(); 
 
 
 
