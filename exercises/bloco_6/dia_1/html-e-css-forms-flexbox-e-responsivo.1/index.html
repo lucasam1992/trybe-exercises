@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Forms</title>
+  </head>
+  <body>
+    <header>
+        <h1 id='title'>Form Class</h1>
+    </header>
+    <main>
+        <form>
+        <fieldset>
+            <div class="linha">
+                <label for="name">Nome:</label>
+                <input type='text' maxlength='40' name='name' id='name' required>
+            </div>
+            <div class="linha">
+                <label for="email">Email</label>
+                <input type='email' maxlength='50' name='email' id='email' class="email-input" required>
+            </div>
+            <div class="linha">
+                <label for="cpf">CPF</label>
+                <input type='text' maxlength='11' name='cpf' id='cpf' required>
+            </div>
+            <div class="linha">
+                <label for="endereco">Endereço</label>
+                <input type='text' maxlength='200' name='endereco' id='endereco' required>
+            </div>
+            <div class="linha">
+                <label for="cidade">Cidade</label>
+                <input type='text' maxlength='200' name='cidade' id='cidade' required>
+            </div>
+            <div class="linha">
+                <label for="estado">Estado</label>
+                <select name="estado" id="estado" value="" required>         
+                </select>
+            </div>
+            <div class="linha">
+                <label for="complemento">Tipo</label>
+                <input type='radio' id="casa" name="complemento" value="casa" required><span>Casa</span>
+                <input type='radio' id="apartamento" name="complemento" value="apartamento" required><span>Apartamento</span>
+            </div>
+        </fieldset>
+            <div class="linha">
+                <label for="resumo">Resumo do Curriculo</label>
+                <textarea id="resumo" name="resumo" maxlength="1000" required></textarea>
+            </div>
+            <div class="linha">
+                <label for="cargo">Cargo</label>
+                <input type="text" id="cargo" name="cargo" maxlength="40" required>
+            </div>
+            <div class="linha">
+                <label for="descricao-cargo">Descrição do Cargo</label>
+                <input type="text" id="descricao-cargo" name="descricao-cargo" maxlength="500" required>
+            </div>
+            <div class="linha">
+                <label fot="data">Data de Inicio:</label>
+                <input type="text" class="data" name="data" value="" required>
+            </div>
+        </fieldset>
+            <button type="button" class="botao-enviar">Enviar</button>
+            <button type="button" class="botao-apagar">Limpar</button>       
+        </form>
+        <section class="form-data"></section>
+        <script src="script.js"></script>
+    </main>
+  </body>
+</html>
