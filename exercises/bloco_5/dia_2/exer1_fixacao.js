@@ -73,5 +73,3 @@ document.getElementById('filhoDoPrimeiroFiDoFi').parentNode.parentNode.nextSibli
 let itensDaLista = document.querySelectorAll('paiDoPai');
 
 //FALTA FAZER, NAO CONSEGUI
-
-
