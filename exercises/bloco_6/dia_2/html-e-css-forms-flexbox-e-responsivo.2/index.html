@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <title>Forms</title>
+    <link rel="stylesheet" href="bulma-0.9.1/bulma/css/bulma.min.css">
+</head>
+  <body>
+    <header class="container is-widescreen">
+        <h1 class='title'>Form Class</h1>
+    </header>
+    <main>
+        <form method="GET" action="" class="js-form">
+        <fieldset class="form-group">
+            <div class="container is-widescreen">
+                <label  class="form-label" for="name">Nome:</label>
+                <input type='text' data-validate-field="name" maxlength='40' name='name' id='name' class="input is-primary" required>
+            </div>
+            <div class="container is-widescreen">
+                <label for="email">Email</label>
+                <input type='email' maxlength='50' name='email' id='email' class="input is-primary email-input"  required>
+            </div>
+            <div class="container is-widescreen">
+                <label for="cpf">CPF</label>
+                <input type='text' maxlength='11' name='cpf' id='cpf' class="input is-primary" required>
+            </div>
+            <div class="container is-widescreen">
+                <label for="endereco">Endereço</label>
+                <input type='text' maxlength='200' name='endereco' id='endereco' class="input is-primary"  required>
+            </div>
+            <div class="container is-widescreen">
+                <label for="cidade">Cidade</label>
+                <input type='text' maxlength='200' name='cidade' id='cidade' class="input is-primary"  required>
+            </div>
+            <div class="container is-widescreen">
+                <label class="select is-primary" for="estado">Estado
+                <select name="estado" id="estado" value=""  required>         
+                </select>
+            </label>
+            </div>
+            <br><br>
+            <div class="container is-widescreen">
+                <label for="complemento">Tipo</label>
+                <input type='radio' id="casa" name="complemento" value="casa" required><span>Casa</span>
+                <input type='radio' id="apartamento" name="complemento" value="apartamento" required><span>Apartamento</span>
+            </div>
+        </fieldset >
+
+        <fieldset class="form-group">
+            <div class="container is-widescreen">
+                <label for="resumo">Resumo do Curriculo</label>
+                <textarea id="resumo" name="resumo" maxlength="1000" class="textarea is-primary" required></textarea>
+            </div>
+            <div class="container is-widescreen">
+                <label for="cargo">Cargo</label>
+                <input type="text" id="cargo" name="cargo" maxlength="40" class="input is-primary"  required>
+            </div>
+            <div class="container is-widescreen">
+                <label for="descricao-cargo">Descrição do Cargo</label>
+                <input type="text" id="descricao-cargo" name="descricao-cargo" maxlength="500" class="input is-primary"  required>
+            </div>
+            <div class="container is-widescreen">
+                <label fot="data">Data de Inicio:</label>
+                <input type="text" class="data input is-primary" name="data" value=""  required>
+            </div>
+            <br>
+        </fieldset>
+            <div class="container is-widescreen">
+            <button type="button"  class="botao-enviar button is-primary">Enviar</button>
+            <button type="button" class="botao-apagar button is-danger">Limpar</button>       
+            </div>
+        </form>
+        <section class="form-data"></section>
+        <script src="script.js"></script>
+    </main>
+  </body>
+</html>
