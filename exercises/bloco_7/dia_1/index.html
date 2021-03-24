@@ -1,0 +1,13 @@
+<html>
+<body>
+    <div>
+        <span id="text"></span>
+    </div>
+    <button id="button_test">click</button>
+</body>
+<script>
+    let contador =0;
+    let clickCount = document.getElementById("text");
+    document.getElementById("button_test").addEventListener("click", () => clickCount.innerHTML = contador +=1);
+</script>
+</html>
