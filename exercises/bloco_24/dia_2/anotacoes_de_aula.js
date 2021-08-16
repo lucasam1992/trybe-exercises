@@ -17,7 +17,7 @@
 db.supplies.updateOne(
   { _id: 1 },
   {
-push: {
+$push: {
       items: {
         "name": "notepad",
         "price":  35.29,
