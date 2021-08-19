@@ -318,12 +318,199 @@ db.sales.aggregate([
 db.transactions.aggregate([
     {
         $group:{
-            _id:'bank',
+            _id:'$bank',
             bank:{$sum:1}
         }
     }   
 ]);
 //EXERCICIO 2:Selecione o valor total das transações em cada banco e quantas são;
+db.transactions.aggregate([
+    {
+        $group:{
+            _id:'$bank',
+            total:{$sum:'$value'},
+            transações:{$sum:1}
+        }
+    }
+]);
 //EXERCICIO 3:Selecione o valor total de transações;
+db.transactions.aggregate([
+    {
+        $group:{
+            _id:'$bank',
+            total:{$sum:'$value'}
+        }
+    }
+]);
 //EXERCICIO 4:Selecione os bancos que têm o valor total de transações maior que 1000.
+db.transactions.aggregate([
+    {
+      $match:{
+        value:{$gt:1000}
+      }
+    },
+    {
+        $group:{
+            _id:'$bank',
+            total:{$sum:'$value'}   
+        }
+    }
+]);
+
+
+//Operador $unwind
+//operador $unwind "desconstrói" um campo array do documento de entrada e gera como saída um documento
+// para cada elemento do array . Cada documento de saída é o documento de entrada com o valor do campo 
+//array substituído por um elemento do array .
+
+//Exemplo:
+db.inventory.insertOne({ _id: 7, item: "ABC1", sizes: ["S", "M", "L"] });
+//usando $unwind
+db.inventory.aggregate([{ $unwind : "$sizes" }]);
+//resultado
+{ "_id" : 7, "item" : "ABC1", "sizes" : "S" }
+{ "_id" : 7, "item" : "ABC1", "sizes" : "M" }
+{ "_id" : 7, "item" : "ABC1", "sizes" : "L" }
+
+
+//Operador $lookup
+//juntar documentos de outra coleção ( join ).
+//Existem quatro parâmetros básicos para montar um $lookup :
+//from : uma coleção no mesmo database para executar o join ;
+//localField : o campo da coleção de onde a operação de agregação está sendo executada. 
+//Será comparado por igualdade com o campo especificado no parâmetro foreingField ;
+//foreingField : o campo da coleção especificada no parâmetro from que será comparado com o campo 
+//localField por igualdade simples;
+//as : o nome do novo array que será adicionado.
+
+//Exemplo
+// orders
+db.orders.insertMany([
+    { _id: 1, item: "almonds", price: 12, quantity: 2 },
+    { _id: 2, item: "pecans", price: 20, quantity: 1 },
+    { _id: 3 }
+]);
+
+//// inventory
+db.inventory.insertMany([
+    { _id: 1, sku: "almonds", description: "product 1", instock: 120 },
+    { _id: 2, sku: "bread", description: "product 2", instock: 80 },
+    { _id: 3, sku: "cashews", description: "product 3", instock: 60 },
+    { _id: 4, sku: "pecans", description: "product 4", instock: 70 },
+    { _id: 5, sku: null, description: "Incomplete" },
+    { _id: 6 }
+]);
+
+//primeira coisa é encontrar um campo em comum entre elas. Nesse caso, seriam os campos
+// item (coleção orders ) e sku (coleção inventory ).
+db.orders.aggregate([
+    {
+  $lookup: {
+        from: "inventory",
+        localField: "item",
+        foreignField: "sku",
+        as: "inventory_docs"
+      }
+    }
+]);
+
+//resultado
+{
+    "_id" : 1,
+    "item" : "almonds",
+    "price" : 12,
+    "quantity" : 2,
+    "inventory_docs" : [
+      {
+        "_id" : 1,
+        "sku" : "almonds",
+        "description" : "product 1",
+        "instock" : 120
+      }
+    ]
+  }
+  {
+    "_id" : 2,
+    "item" : "pecans",
+    "price" : 20,
+    "quantity" : 1,
+    "inventory_docs" : [
+      {
+        "_id" : 4,
+        "sku" : "pecans",
+        "description" : "product 4",
+        "instock" : 70
+      }
+    ]
+  }
+  {
+    "_id" : 3,
+    "inventory_docs" : [
+      {
+        "_id" : 5,
+        "sku" : null,
+        "description" : "Incomplete"
+      },
+      {
+        "_id" : 6
+      }
+    ]
+}
+
+
+//Exercicios FIxação
+use agg_example;
+db.clients.insertMany([
+  { name: "Dave America", State: "Florida" },
+  { name: "Ned Flanders", State: "Alasca" },
+  { name: "Mark Zuck", State: "Texas" },
+  { name: "Edna Krabappel", State: "Montana" },
+  { name: "Arnold Schuz", State: "California" },
+  { name: "Lisa Simpson", State: "Florida" },
+  { name: "Barney Gumble", State: "Texas" },
+  { name: "Homer Simpson", State: "Florida" },
+]);
+
+//EXERCICIO1 -Selecione todos os clientes com as suas respectivas transações feitas;
+db.clients.aggregate([
+    {
+        $lookup:{
+            from:"transactions",
+            localField:"name",
+            foreignField:"from",
+            as: "transactions_history"
+        }
+    }
+]);
+
+//EXERCICIO2 -Selecione quatro clientes com as suas respectivas transações recebidas;
+db.clients.aggregate([
+    {
+        $lookup:{
+            from:"transactions",
+            localField:"name",
+            foreignField:"to",
+            as: "transactions_history"
+        }
+    },
+    {
+        $limit:4,
+    }
+]);
+
+//EXERCICIO3 -Selecione todos os cliente do estado da "Florida" e suas respectivas transações recebidas.
+db.clients.aggregate([
+    {
+        $match:{ State: 'Florida'},
+    },
+    {
+        $lookup:{
+            from:"transactions",
+            localField:"name",
+            foreignField:"to",
+            as:"transactions_history"
+        }
+    }
+]);
+
 
