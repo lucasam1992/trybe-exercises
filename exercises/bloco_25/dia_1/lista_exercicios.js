@@ -247,5 +247,47 @@ db.vendas.aggregate([
     }
 ]);
 
+//Exercício 13 : Encontre qual foi o total de vendas e a 
+//média de vendas de cada uf no ano de 2019 . 
+//Ordene os resultados pelo nome da uf .
+// Retorne os documentos no seguinte formato:
+db.vendas.aggregate([
+    {
+      $match:{
+        dataVenda:{
+          $gte:ISODate('2019-01-01'),
+          $lte:ISODate('2019-12-31'),
+        }
+      }
+    },
+    {
+      $lookup:{
+        from:"clientes",
+        localField:"clienteId",
+        foreignField:"clienteId",
+        as: "cliente"
+      }
+    },
+    {
+      $unwind:"$cliente"
+    },
+    {
+      $group:{
+        _id:"$cliente.endereco.uf",
+        media:{$avg:"$valorTotal"},
+        total:{$sum:1}
 
-
+      }
+    },
+    {
+      $project:{
+        _id:0,
+        uf:"$_id",
+        media:1,
+        total:1
+      }
+    },
+    {
+      $sort:{"endereco.uf":1}
+    }
+]);
