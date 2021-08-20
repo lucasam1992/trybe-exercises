@@ -204,8 +204,48 @@ db.vendas.aggregate([
     {$project:{_id:0}}
 ]);
 
-
-
+//Exercício 12 : Descubra quais as três uf s que mais 
+//compraram no ano de 2020 . Retorne os documentos no 
+//seguinte formato:
+db.vendas.aggregate([
+    {
+      $match:{
+        dataVenda:{
+          $gte:ISODate('2020-01-01'),
+        }
+      }
+    },
+    {
+      $lookup:{
+        from:"clientes",
+        localField:"clienteId",
+        foreignField:"clienteId",
+        as: "ufs_mais_compraram"
+      }
+    },
+    {
+      $unwind:"$ufs_mais_compraram"
+    },
+    {
+      $group:{
+        _id:"$ufs_mais_compraram.endereco.uf",
+        total:{$sum:1}
+      }
+    },
+    {
+      $sort:{total:-1}
+    },
+    {
+      $limit:3
+    },
+    {
+      $project:{
+        _id:0,
+        uf:"$_id",
+        total:1
+      }
+    }
+]);
 
 
 
