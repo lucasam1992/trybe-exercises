@@ -144,13 +144,108 @@ db.vendas.aggregate([
     }
 ]);
 
+//Exercício 10 : Descubra quantos clientes compraram mais
+// de 5 vezes. Retorne um documento que contenha somente
+// o campo clientes com o total de clientes.
+db.vendas.aggregate([
+    {
+     $group:{
+       _id:"$clienteId",
+       totalCompras:{$sum:1}
+     }
+   },
+   {
+     $match:{
+       totalCompras:{$gt:5}
+     }
+   },
+   {
+     $group:{
+       _id:null,
+       clientes:{$sum:1}
+     }
+   },
+   {
+     $project:{
+       _id:0
+     }
+   }
+]);
 
+//Exercício 11 : Descubra quantos clientes compraram menos
+// de três vezes entre os meses de Janeiro de 2020 e Março
+// de 2020 .
+db.vendas.aggregate([
+    {
+      $match:{
+        dataVenda:{
+          $gte:ISODate('2020-01-01'),
+          $lte:ISODate('2020-03-31'),
+        }
+      }
+    },
+    {
+      $group:{
+        _id:"$clienteId",
+        total:{$sum:1}
+      }
+    },
+    {
+      $match:{
+        total:{$lt:3}
+      }
+    },
+    {
+      $group:{
+        _id:null,
+        clientes:{$sum:1}
+      }
+    },
+    {$project:{_id:0}}
+]);
 
-
-
-
-
-
+//Exercício 12 : Descubra quais as três uf s que mais 
+//compraram no ano de 2020 . Retorne os documentos no 
+//seguinte formato:
+db.vendas.aggregate([
+    {
+      $match:{
+        dataVenda:{
+          $gte:ISODate('2020-01-01'),
+        }
+      }
+    },
+    {
+      $lookup:{
+        from:"clientes",
+        localField:"clienteId",
+        foreignField:"clienteId",
+        as: "ufs_mais_compraram"
+      }
+    },
+    {
+      $unwind:"$ufs_mais_compraram"
+    },
+    {
+      $group:{
+        _id:"$ufs_mais_compraram.endereco.uf",
+        total:{$sum:1}
+      }
+    },
+    {
+      $sort:{total:-1}
+    },
+    {
+      $limit:3
+    },
+    {
+      $project:{
+        _id:0,
+        uf:"$_id",
+        total:1
+      }
+    }
+]);
 
 
 
