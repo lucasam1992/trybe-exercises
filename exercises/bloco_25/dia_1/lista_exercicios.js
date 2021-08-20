@@ -49,8 +49,17 @@ db.clientes.aggregate([
     {$match:{"endereco.uf":"SC"}},
     {$group:{_id:"SC", total:{$sum:1} }}
 ]);
-  
 
+//Exercício 5: Agrupe os clientes por sexo . Retorne o total de clientes
+// de cada sexo no campo total .
+db.clientes.aggregate([
+    {
+      $group:{
+        _id:"$sexo",
+        total:{$sum:1}
+      }
+    }
+]);
 
 
 
