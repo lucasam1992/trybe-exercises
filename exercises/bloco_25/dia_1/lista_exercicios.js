@@ -288,6 +288,8 @@ db.vendas.aggregate([
       }
     },
     {
-      $sort:{"endereco.uf":1}
+      $sort:{
+        uf:1
+      }
     }
 ]);
