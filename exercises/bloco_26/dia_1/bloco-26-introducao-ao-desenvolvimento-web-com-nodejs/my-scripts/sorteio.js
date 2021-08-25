@@ -10,6 +10,7 @@ function advinhaNumero(){
     }else{
     console.log(`Parabéns, número correto!`);
     }
+    advinhaNumero();
 }
 
 advinhaNumero();
