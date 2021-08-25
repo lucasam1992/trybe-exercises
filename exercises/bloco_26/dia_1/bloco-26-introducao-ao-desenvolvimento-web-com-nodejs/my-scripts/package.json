@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "imc": "node imc.js",
     "imcInputs" : "node imcInputs.js",
-    "imcCalcConditionsTable":"node imcCalcConditionsTable.js"
+    "imcCalcConditionsTable":"node imcCalcConditionsTable.js",
+    "velocidade" : "node velocidade.js"
   },
   "keywords": [
     "node.js"
