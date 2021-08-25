@@ -278,14 +278,76 @@ fs.readFile(nomeDoArquivo, 'utf8')
 
 
 //Escrevendo dados em arquivos
+// Assim como o módulo ('fs').promises disponibiliza o método readFile , há também o método writeFile .
+const fs = require('fs').promises;
+
+fs.writeFile('./meu-arquivo.txt', 'Meu textão')
+  .then(() => {
+    console.log('Arquivo escrito com sucesso!');
+  })
+  .catch((err) => {
+    console.error(`Erro ao escrever o arquivo: ${err.message}`);
+});
 
 
+//Utilizando async/await
+//foram criadas para trabalhar com Promises como se estivéssemos trabalhando com código síncrono.
+//A questão é que toda função na qual utilizamos async , automaticamente passa a retornar uma Promise, que será rejeitada em caso de erro, e resolvida em caso de sucesso.
+const fs = require('fs').promises;
+
+async function main() {
+  try {
+    await fs.writeFile('./meu-arquivo.txt', 'Meu textão');
+    console.log('Arquivo escrito com sucesso!');
+  } catch (err) {
+    console.error(`Erro ao escrever o arquivo: ${err.message}`);
+  }
+}
+
+main()
+
+//Perceba que, para podermos utilizar o async/await , precisamos criar uma função main e colocar nossa lógica dentro dela. Isso acontece porque, por enquanto, o await só pode ser utilizado dentro de funções async .
+const fs = require('fs').promises;
+
+// A flag wx abre o arquivo para escrita **apenas** caso ele não exista. Caso o contrário, um erro será lançado
+fs.writeFile('./meu-arquivo.txt', 'Eu estive aqui :eyes:', { flag: 'wx' })
+  .then(() => {
+    console.log('Arquivo salvo');
+  })
+  .catch((err) => {
+    // Se o arquivo existir, um erro é retornado
+    console.error('err');
+});
+
+//Note que, quando rodamos o código com a flag wx , tentando escrever no arquivo meu-arquivo.txt , é gerado o seguinte erro:
+[...]
+[Error: EEXIST: file already exists, open './meu-arquivo.txt'] {
+  errno: -17,
+  code: 'EEXIST',
+  syscall: 'open',
+  path: './meu-arquivo.txt'
+}
 
 
+//Rodando tudo junto
+//O Promise.all é um método da Promise que nos permite passar um array de Promises e receber, de volta, uma única Promise. 
+//Esse método também nos permite utilizar um único catch , que será chamado caso qualquer uma das Promises seja rejeitada.
 
 
+//Vamos reescrever quase o mesmo código que fizemos lá em cima, que utilizamos para mostrar como Promises evitam o callback hell.
+// Desta vez, vamos escrever, no final, a soma do tamanho de todos os arquivos. Além disso, vamos utilizar o módulo ('fs').promises para não precisarmos trabalhar com callbacks manualmente.
 
+const fs = require('fs').promises;
 
-
-
-
+Promise.all([
+  fs.readFile('file1.txt'),
+  fs.readFile('file2.txt'),
+  fs.readFile('file3.txt'),
+])
+  .then(([file1, file2, file3]) => {
+    const fileSizeSum = file1.byteLength + file2.byteLength + file3.byteLength;
+    console.log(`Lidos 3 arquivos totalizando ${fileSizeSum} bytes`);
+  })
+  .catch((err) => {
+    console.error(`Erro ao ler arquivos: ${err.message}`);
+  });
