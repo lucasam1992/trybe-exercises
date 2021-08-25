@@ -9,7 +9,8 @@
     "imcInputs" : "node imcInputs.js",
     "imcCalcConditionsTable":"node imcCalcConditionsTable.js",
     "velocidade" : "node velocidade.js",
-    "sorteio" : "node sorteio.js"
+    "sorteio" : "node sorteio.js",
+    "start" : "node index.js"
   },
   "keywords": [
     "node.js"
