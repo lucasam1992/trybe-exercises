@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "imc": "node imc.js",
-    "imcInputs" : "node imcInputs.js"
+    "imcInputs" : "node imcInputs.js",
+    "imcCalcConditionsTable":"node imcCalcConditionsTable.js"
   },
   "keywords": [
     "node.js"
