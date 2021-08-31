@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const rescue = require('express-rescue');
+const simpsonsUtils = require('./utils');
 
 const app = express();
 
@@ -56,10 +58,21 @@ app.put('/users/:name/:age', (req,res) =>{
 });
 //http PUT :3001/users/:name/:age name=lucas age=18
 
+//Exercicio 5
+//Crie uma API de dados das personagens de Simpsons
+//Crie um arquivo chamado simpsons.json e popule com os seguintes dados:
+//Utilize o modulo fs do Node para ler/escrever arquivos.
+//Caso algum erro ocorra, deve ser retornado um código 500 (Internal Server Error).
+//Caso dê tudo certo, a resposta deve voltar com status 200 OK .
+//Para testar sua API durante o desenvolvimento, utilize ferramentas que permitem fazer requisições HTTP, como Postman , Insomnia ou httpie .
 
+//const rescue = require('express-rescue');
+//const simpsonsUtils = require('./utils');
+app.get('/simpsons', rescue(async (req,res) =>{
+    const simpsons = await simpsonsUtils.getSimpsons();
 
-
-
+    res.status(200).json(simpsons);
+}));
 
 
 
