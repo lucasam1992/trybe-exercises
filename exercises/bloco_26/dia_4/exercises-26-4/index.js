@@ -58,13 +58,17 @@ app.put('/users/:name/:age', (req,res) =>{
 });
 //http PUT :3001/users/:name/:age name=lucas age=18
 
-//Exercicio 5 -6 - 7 - 8
+//Exercicio 5 
 //Crie uma API de dados das personagens de Simpsons
 //Crie um arquivo chamado simpsons.json e popule com os seguintes dados:
 //Utilize o modulo fs do Node para ler/escrever arquivos.
 //Caso algum erro ocorra, deve ser retornado um código 500 (Internal Server Error).
 //Caso dê tudo certo, a resposta deve voltar com status 200 OK .
 //Para testar sua API durante o desenvolvimento, utilize ferramentas que permitem fazer requisições HTTP, como Postman , Insomnia ou httpie .
+
+//Exercicio 6
+//Crie um endpoint GET /simpsons
+//O endpoint deve retornar um array com todos os simpsons.
 
 //const rescue = require('express-rescue');
 //const simpsonsUtils = require('./utils');
@@ -74,6 +78,10 @@ app.get('/simpsons', rescue(async (req,res) =>{
     res.status(200).json(simpsons);
 }));
 
+//Exercicio 7
+//Crie um endpoint GET /simpsons/:id
+//O endpoint deve retornar o personagem com o id informado na URL da requisição.
+//Caso não exista nenhum personagem com o id especificado, retorne o JSON { message: 'simpson not found' } com o status 404 - Not Found .
 app.get('/simpsons/:id', rescue(async (req,res) =>{
     const simpsons = await simpsonsUtils.getSimpsons();
 
@@ -83,6 +91,14 @@ app.get('/simpsons/:id', rescue(async (req,res) =>{
 
     res.status(202).json(simpson);
 }));
+
+
+//Exercicio 8
+//Crie um endpoint POST /simpsons .
+//Este endpoint deve cadastrar novos personagens.
+//O corpo da requisição deve receber o seguinte JSON: { id: <id-da-personagem>, name: '<nome-da-personagem>' } .
+//Caso já exista uma personagem com o id informado, devolva o JSON { message: 'id already exists' } com o status 409 - Conflict .
+//Caso a personagem ainda não exista, adicione-a ao arquivo simpsons.json e devolva um body vazio com o status 204 - No Content . Para encerrar a request sem enviar nenhum dado, você pode utilizar res.status(204).end(); .
 
 app.post('/simpsons', rescue( async (req,res) => {
     const {id, name} = req.body;
