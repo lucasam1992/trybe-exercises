@@ -30,6 +30,7 @@ app.post('/hello', (req, res) => {
 //Testar no httpie => http POST :3001/hello name=lucas
 
 
+//Exercicio 3
 //Crie uma rota POST /greetings
 //Sua rota deve receber o seguinte JSON: { "name": "<nome do usuário>", "age": <idade do usuário> } .
 //Caso a pessoa usuária tenha idade superior a 17 anos, devolva o JSON { "message": "Hello, <nome do usuário>!" } com o status code 200 - OK .
@@ -46,6 +47,14 @@ app.post('/greetings', (req,res) => {
 //http POST :3001/greetings name=lucas age=18
 
 
+//Exercicio 4
+//Crie uma rota PUT /users/:name/:age .
+//Sua rota deve retornar o seguinte JSON: { "message": "Seu nome é <name> e você tem <age> anos de idade" } .
+app.put('/users/:name/:age', (req,res) =>{
+    const {name,age} = req.body;
+    res.status(200).json({"message": `Seu nome é ${name} e você tem ${age} anos de idade` });
+});
+//http PUT :3001/users/:name/:age name=lucas age=18
 
 
 
