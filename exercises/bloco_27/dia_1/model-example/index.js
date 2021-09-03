@@ -41,7 +41,11 @@ app.get('/books', async (req, res) => {
 app.get('/books/:id', async (req, res) => {
     const { id } = req.params;
   
-    const book = await Book.getById(id);
+    //mysql
+  //  const book = await Book.getById(id);
+
+  //mongodb
+  const book = await Book.findById(id);
   
     if (!book) return res.status(404).json({ message: 'Book not found' })
   
