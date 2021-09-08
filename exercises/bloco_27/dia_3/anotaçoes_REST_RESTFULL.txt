@@ -1,0 +1,15 @@
+RESTful é, basicamente, um web service que segue as regras definidas pelo padrão REST.
+
+Representational State Transfer (REST), em português Transferência de Estado Representacional, é um estilo de arquitetura de software, controlado pelo W3C , que define um conjunto de restrições a serem usadas para a criação de APIs.
+
+Para o REST, uma aplicação é um conjunto de recursos que podem ter seu estado representado de alguma forma. Ao consumir esses recursos, você está transferindo as informações sobre esse estado para o cliente (uma requisição GET , por exemplo) 
+ou fazendo uma alteração nele (um POST , PUT ou DELETE ). Daí o nome Transferência de Estado Representacional , ou seja, estamos transferindo uma representação do estado de algum recurso.
+
+
+As 6 restrições para ser RESTful
+1 - Interface uniforme ( Uniform Interface )
+2 - Arquitetura cliente-servidor
+3 - Sem estado ( Stateless )
+4 - Cacheable
+5 - Sistema em camadas ( Layered System )
+6 - Código sob demanda ( Code on Demand )
