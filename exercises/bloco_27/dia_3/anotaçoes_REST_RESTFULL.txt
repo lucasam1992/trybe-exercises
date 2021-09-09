@@ -7,9 +7,25 @@ ou fazendo uma alteração nele (um POST , PUT ou DELETE ). Daí o nome Transfer
 
 
 As 6 restrições para ser RESTful
-1 - Interface uniforme ( Uniform Interface )
-2 - Arquitetura cliente-servidor
-3 - Sem estado ( Stateless )
-4 - Cacheable
-5 - Sistema em camadas ( Layered System )
-6 - Código sob demanda ( Code on Demand )
+1 - Interface uniforme ( Uniform Interface ) - Essa interface inclui o endpoint , o tipo de retorno e o uso dos verbos HTTP .
+2 - Arquitetura cliente-servidor - Não importa quem é nosso cliente, as nossas APIs têm que conseguir retornar dados para ele
+3 - Sem estado ( Stateless ) - Não manter estado significa que toda requisição deve conter todas as informações necessárias (ser autossuficiente) para nossa API realizar uma ação . Desse jeito, não podemos reutilizar nenhum contexto que está armazenado no servidor (uma variável, por exemplo).
+4 - Cacheable - as respostas dadas pela nossa API devem dizer, explicitamente, se podem ou não ser cacheadas e por quanto tempo . Com isso, evita-se que clientes forneçam respostas "velhas" ou inapropriadas.
+5 - Sistema em camadas ( Layered System ) - Esse princípio é sobre abstrair do cliente as camadas necessárias para responder a uma requisição .
+6 - Código sob demanda ( Code on Demand ) - dar a possibilidade de o nosso servidor enviar código (JavaScript, por exemplo) ao nosso cliente, onde será executado. Assim, você consegue customizar o comportamento do cliente.
+
+REST no Express
+
+De maneira geral, usar o Express ou qualquer outro framework não deve fazer muita diferença.
+vantagens de se usar o Express para construção de APIs é a organização das rotas
+
+app.route('/user')
+  .get((req, res) => {
+    // Realiza uma operação
+    res.status(401).send({
+      message: 'Usuário não autorizado'
+    })
+  })
+  .post(...)
+  .put(...)
+  .delete(...)
