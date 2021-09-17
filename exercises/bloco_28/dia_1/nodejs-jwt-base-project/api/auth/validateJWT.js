@@ -7,7 +7,7 @@ const segredo = 'seusecretdetoken';
 
 module.exports = async (req,res,next) => {
     //token gerado anteriormente
-    const token = req.headers['authorization'];
+    const token = req.headers.authorization;
 
     if(!token) return res.status(401).json({error: 'Token não encontrado ou informado'});
 
