@@ -1,0 +1,73 @@
+JSON WEB TOKEN
+
+O JWT (JSON Web Token) é um token gerado a partir de dados "pessoais" que pode ser trafegado pela internet ao fazer requisições para APIs e afins. Mas atenção: toda a informação que colocamos no JWT é pública , 
+e qualquer pessoa com o token consegue ler essas informações. O mecanismo de segurança do JWT permite, no entanto, que apenas quem tem a senha consiga alterar as informações contidas em um token.
+
+O JWT também é usado para autorização, quando precisamos fazer o processo de atestar as permissões de uma pessoa usuária que deseja acessar uma rota ou recurso protegido. Isso exige o envio do token, normalmente no header Authorization,
+ a partir do qual são acessadas as informações necessárias para a verificação.
+
+
+Autenticação e Autorização
+
+autenticação e autorização são coisas diferentes.
+
+Autenticação é usada para atestar que alguém é quem diz ser, verificando sua identidade, comumente feita por meio de informações confidenciais como email e senha. Já a autorização verifica as permissões de uma pessoa para acessar ou executar determinadas operações.
+
+Autenticação sempre precede a autorização.
+
+
+O que é HMAC?
+
+O HMAC é um algoritmo para gerar um MAC (código de autenticação de mensagem) criptografado através de algum algoritmo de hash (algoritmos que codificam mensagens), como md5 , sha1 ou sha256 , a partir de uma chave secreta (uma senha) e de uma mensagem qualquer.
+
+
+Entendendo o JWT
+
+O resultado final do JWT dá-se através da assinatura criptográfica de dois blocos de JSON codificados em base64. Esses dois blocos JSON codificados são o header (cabeçalho) e payload (carga).
+A signature (assinatura) é a junção dos hashes gerados a partir do header e payload.
+
+Header
+
+O Header contém duas propriedades: o tipo do token, que é JWT, e o tipo do algoritmo de hash , como HMAC-SHA256 ou RSA :
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+
+Payload(dados do usuário)
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "admin": true
+}
+
+Signature
+
+Para gerar a assinatura, você deve usar o header e o payload codificados em base64 , usando o algoritmo definido no header
+
+
+O resultado terá a seguinte estrutura:
+
+(Header em base64).(Payload em base64).(Signature em base64)
+
+por ser algo que é transmitido via HTTP, JWT pode ser usado com qualquer linguagem que suporte os requisitos mínimos para gerar o token e enviar uma requisição HTTP, como, por exemplo, Java, C#, PHP ou Python.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
