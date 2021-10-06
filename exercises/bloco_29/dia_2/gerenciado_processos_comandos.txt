@@ -1,0 +1,221 @@
+- Gerenciador de Processo:
+    - PM2: Auxilia o gerenciamento de aplicações em ambientes de produção, permitindo manter a aplicação sempre rodando, reiniciando-a quando necessário, sem downtime, e facilitando o gerenciamento dos processos:
+        - Gerenciando Processos:
+        - npm install pm2@latest -g;
+        - npm i pm2 // apenas nas dependecias do projeto
+        - pm2 --version;
+        - pm2 update;
+        - pm2 start index.js //inicializando node index.js com PM2
+        - pm2 start index.js --name <NOME_DO_PROCESSO> //inicializando com nome, caso contrario nome = index
+        - pm2 stop <NOME_DO_PROCESSO> //parar processo
+        - pm2 stop all //parar todos os processos
+        - pm2 delete <NOME_DO_PROCESSO>;
+        - pm2 restart <NOME_DO_PROCESSO>;
+        - pm2 reload <NOME_DO_PROCESSO>;
+        - Monitorando Processos:
+        - pm2 list //listar todos os processos gerenciados pelo PM2
+        - pm2 list --sort name:desc //exibir a lista de processos ordenada, basta passar a flag sort
+        - pm2 show <NOME_DO_PROCESSO> //exibir mais detalhes sobre um processo específico
+        - pm2 logs <NOME_DO_PROCESSO> //exibe o histórico de seus apps em tempo real
+        - pm2 monit //é possível visualizar um dashboard em tempo real diretamente no seu terminal.
+        - pm2 plus //comando te redirecionará para o navegador para você prosseguir com o login
+        - Modo Cluster: Permite escalar nossa aplicação entre as CPUs disponíveis na máquina, sem a necessidade de modificações no código, aumentando a performance e a disponibilidade de nossa app , de acordo com as CPUs disponíveis.
+            - pm2 start index.js --instances 2 --name <NOME_DO_PROCESSO> //serão iniciados dois processos.
+            - pm2 start index.js -i max --name <NOME_DO_PROCESSO> //utilizar, no lugar do número de instâncias, a tag max ou 0 . Desse modo, o PM2 vai criar uma instância para cada CPU disponível na máquina.
+            - Scaling: Outra forma de aumentar o numero de processos.
+                - pm2 scale <NOME_DO_PROCESSO> 3 //Nesse caso, o número de processos será definido como três. Isso significa que, caso existam menos que três, novos processos serão criados. Se houver mais, serão excluídos processos para totalizar o "três" passado como parâmetro.;
+                - pm2 scale <NOME_DO_PROCESSO> +3 //Aqui, serão adicionados três novos processos além dos que já estão em execução.
+            - Stateless: Não possui estado, logo, nenhuma informação do usuário é salva em uma sessão para ser utilizada por ele em uma próxima sessão. Toda informação é trabalhada durante o tempo de duração daquele processo.
+        - Ecosystem File: É possível passar um arquivo de configuração para o PM2 executar suas aplicações. Dentro dele se configura comportamentos, opções, variáveis de ambiente e arquivos de logs de cada aplicação. O arquivo de configuração pode ser feito em JS, JSON ou YAML;
+            - pm2 [start|restart|stop|delete] ecosystem.config.js;
+            - JavaScript:
+                
+                ```
+                module.exports = {
+                  apps: [
+                    {
+                      name: 'app',
+                      script: './index.js'
+                    },
+                    //...
+                  ]
+                };
+                ```
+                
+                - pm2 start index.js --name <NOME_DO_PROCESSO> //se não fosse executado com ecosystem
+            - YAML:
+                
+                ```
+                apps:
+                
+                - name: app
+                  script: ./index.jS
+                ```
+                
+                Multiaplicativos:
+                
+                ```
+                apps:
+                
+                - name: app-1
+                  script: .app-1/index.js
+                - name: app-2
+                  script: .app-2/index.js
+                - name: app-3
+                  script: .app-3/index.js
+                ```
+                
+                - pm2 start ecosystem.config.yml --only app-1 //serão iniciados três processos, pois definimos três aplicações dentro de apps. Aplicação específica, usa-se —only
+                - pm2 start ecosystem.config.yml --only "app-1,app-2" //serão executados apenas o app-1 e o app-2 .
+            - Instâncias:
+                
+                ```
+                apps:
+                
+                - name: app
+                  script: ./index.js
+                  exec_mode: cluster //habilita o modo cluster para esse app
+                  instances: 4 // numero de processos q sera utilizado pelo app
+                ```
+                
+                Importante: Ao alterar o arquivo ecosystem , é necessário deletar e iniciar novamente seu projeto do PM2 para que as alterações sejam aplicadas.
+                
+            - Variáveis de Ambiente:
+                - Para utilizar variáveis de ambiente, basta definir uma propriedade env_ + nome do ambiente . Por exemplo, para utilizar variáveis distintas para os ambientes de prod e homolog , definimos as propriedades env_prod e env_homolog :
+                    
+                    ```
+                    apps:
+                    
+                    - name: app
+                      script: ./index.js
+                      exec_mode: cluster
+                      instances: 4
+                      env_prod:
+                        ENVIRONMENT: PRODUCTION
+                      env_homolog:
+                        ENVIRONMENT: HOMOLOG
+                    ```
+                    
+                    - pm2 start ecosystem.config.yml --env homolog //Para executar, basta utilizar a opção env e selecionar quais variáveis serão passadas
+                    - O valor é sempre o nome definido na propriedade do arquivo, sem o prefixo "env_" . Ou seja, imagine que queremos criar um ambiente de teste. Para isso, vamos criar a propriedade env_staging . Em seguida, para podermos utilizar as variáveis do ambiente de teste, vamos executar a aplicação da seguinte forma:
+                        - pm2 start ecosystem.config.yml --env staging;
+        - Auto restart:
+            - PM2 reinicia automaticamente processos que tenham falhado.
+            - Memória máxima:
+                - pm2 start index.js --name <NOME_DO_PROCESSO> --max-memory-restart 20M //ao chegar em 20mb de memória, o processo deverá ser reiniciado
+                
+                OU
+                
+                ```
+                apps:
+                
+                - name: app
+                  script: ./index.js
+                  max_memory_restart: 20M
+                ```
+                
+            - Delay de restart:
+                - pm2 start index.js --name <NOME_DO_PROCESSO> --restart-delay 100 //Isso significa que o PM2 vai aguardar 100ms para tentar iniciar o processo.
+                
+                OU
+                
+                ```
+                apps:
+                
+                - name: app
+                  script: ./index.js
+                  restart_delay: 100
+                ```
+                
+            - Estratégias de Backoff:
+                - configurar sua aplicação para reiniciar de maneira mais inteligente, em vez de somente ficar reiniciando sempre que houver uma exceção.
+                - é possível ir incrementando um tempo de intervalo entre as tentativas, reduzindo, por exemplo, a carga de conexões em bancos de dados ou outro serviço externo.
+                
+                ```
+                apps:
+                
+                - name: app
+                  script: ./index.js
+                  exp_backoff_restart_delay: 100
+                ```
+                
+        - Assistindo a Alterações:
+            - pm2 start index.js --name <NOME_DO_PROCESSO> --watch
+            
+            OU 
+            
+            Utilizando Ecosystem:
+            
+            ```
+            apps:
+            
+            - name: app
+              script: ./index.js
+              watch: ./
+            ```
+            
+            fica observando um diretório específico e, caso haja alterações nos arquivos, ele automaticamente reinicia os processos.
+            
+        - PM2 com outras linguagens:
+            - lista de "interpretadores":
+                
+                ```
+                {
+                ".sh": "bash",
+                ".py": "python",
+                ".rb": "ruby",
+                ".coffee" : "coffee",
+                ".php": "php",
+                ".pl" : "perl",
+                ".js" : "node"
+                }
+                ```
+                
+                - pm2 start [hello-world.py](http://hello-world.py/) --interpreter=python //Caso seja necessário executar uma aplicação em um formato diferente dos conhecidos pelo PM2
+        - PM2 com Heroku
+            - npm install pm2 //adicionando o módulo no projeto. Para ser usado como dependência
+                - precisamos definir esse script no package.json:
+                
+                ```
+                "scripts": {
+                  "start": "pm2-runtime start ecosystem.config.yml"
+                }
+                ```
+                
+                - aqui estamos utilizando o módulo pm2-runtime , e não o CLI.
+                - Necessario criar o arquivo ecosystem na raiz do projeto: ecosystem.config.yml
+                    
+                    ```
+                    apps:
+                    
+                    - name: app
+                      script: ./index.js
+                    ```
+                    
+                    Agora, é só seguir com o deploy no Heroku!
+                    
+        - Modo Cluster + Heroku
+            
+            ```
+            apps:
+            
+            - name: app
+              script: ./index.js
+              exec_mode: cluster
+              instances: max
+            ```
+            
+            - Modo Cluster + Heroku + Dashboard
+                
+                Nota : O comando abaixo pode ser escrito em uma linha apenas, excluindo a necessidade de ter \ ao final de cada linha.
+                
+                ```
+                 heroku config:set \
+                 PM2_PUBLIC_KEY=CHAVE_PUBLICA \
+                 PM2_SECRET_KEY=CHAVE_PRIVADA \
+                 PM2_MACHINE_NAME=NOME_DO_SERVER \
+                 --app NOME_DO_APP_NO_HEROKU
+                ```
+                
+                Temos três variáveis no comando acima: uma chave pública ( PM2_PUBLIC_KEY ), uma privada ( PM2_SECRET_KEY ) e um nome para identificar a máquina ( PM2_MACHINE_NAME ) que você está utilizando.
+                

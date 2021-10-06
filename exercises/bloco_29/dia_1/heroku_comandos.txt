@@ -1,0 +1,47 @@
+- Heroku:
+    - Instalando Snapd:
+        - sudo snap install hello-world;
+    - Instalação do CLI:
+        - sudo snap install heroku --classic;
+    - Logando no Heroku pelo terminal:
+        - heroku login;
+- Criando um projeto para deploy:
+    - npx create-react-app meu-primeiro-deploy-heroku //Iniciando projeto em react
+    - Listando os remotes:
+        - git remote -v
+    - Como acabamos de iniciar o projeto git , não temos nenhum remote vinculado à nossa aplicação. Com isso, vá no seu GitHub e crie um repositório meu-primeiro-deploy-heroku. Após ter criado o repositório, vá ao terminal e execute o comando para vincular a sua aplicação ao repositório criado no GitHub.
+        - git remote add origin [git@github.com](mailto:git@github.com):[SEU_USUARIO_GITHUB]/meu-primeiro-deploy-heroku.git
+        
+        OU
+        
+        - git remote add origin [https://github.com/[SEU_USUARIO_GITHUB]/meu-primeiro-deploy-heroku.git](https://github.com/%5BSEU_USUARIO_GITHUB%5D/meu-primeiro-deploy-heroku.git)
+    - Heroku remote
+        - Para adicionar o remote do Heroku , basta usar o comando create do CLI dentro da pasta da aplicação, da seguinte maneira:
+            - heroku create; //Após esse comando, liste novamente os remotes e você verá um novo remote chamado heroku , apontando para um repositório em [https://git.heroku.com/](https://git.heroku.com/)
+            - git remote rm heroku // remover remote
+            - heroku create meu-primeiro-deploy-2930 //Para dar um nome específico para o repositório
+    - Nomeação do remote
+        - heroku create meu-deploy-de-testes-29302 --remote heroku-homolog //Por padrão, o CLI vai nomear todos os remotes criados como heroku . Porém, podemos criar o nosso remote passando um nome diferente.
+        - git remote rename heroku heroku-origin //Podemos, também, renomeá-los utilizando o comando git remote rename . Vale lembrar que o comando não vai manter o remote heroku , ele vai renomear o remote heroku para heroku-origin .
+        
+        Nota: Mantenha os remotes do seu projeto como heroku e heroku-homolog .
+        
+    - Vincular um app existente a um novo remote
+        - heroku git:remote -a meu-deploy-de-testes-29302 --remote heroku-test // app meu-deploy-de-testes-29302 associado a um novo remote chamado heroku-test
+    - Fazendo Deploy:
+        - git push heroku-origin master //Para fazer deploy do seu app Heroku, basta você utilizar o comando git push de seu repositório local para a branch master do remote do Heroku;
+        - git push heroku-homolog master //fazendo o push do remote heroku-homolog também
+        - git push heroku branch-do-projeto-trybe:master // quando for fazer deploy dos projetos de aula
+    - Acompanhando a aplicação
+        - Gerenciando seus apps:
+            - heroku apps //listar os serviços que você tem em execução
+            - heroku apps:info nome-do-seu-app-12345 // Para ver os detalhes de um app específico, utilize o comando apps:info
+        - Variáveis de ambiente:
+            - heroku config:set TESTE="texto qualquer" --app nome-do-seu-app-12345 // setando as variaveis de ambiente, caso existam no projeto
+            - heroku config --app nome-do-seu-app-12345 //istar as variáveis de ambiente
+        - Logs:
+            - heroku logs --app nome-do-seu-app-12345 // monitorar os logs dos apps
+            - heroku logs -n 200 --app nome-do-seu-app-12345 //Por padrão, o comando retorna as últimas 100 linhas de logs. Caso você queira mudar isso
+            - heroku logs --tail --app nome-do-seu-app-12345 // abre uma sessão para mostrar em tempo real os últimos logs. Para retornar ao prompt , basta executar Ctrl+C
+        - Removendo um app do Heroku
+            - heroku destroy --app meu-deploy-de-testes-29302 --confirm meu-deploy-de-testes-29302
