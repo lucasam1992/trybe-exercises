@@ -1,7 +1,53 @@
 // ./index.js
 
+// Open/Closed Principle
+
+// Apoio para a função `setApproved` 
+const SCHOOL_DATA = {
+  Standard: {
+    approvalGrade: 0.7,
+  },
+  Hogwarts: {
+    approvalGrade: 0.8,
+  },
+};
+    
+  // Converter
+const percentageGradesIntoLetters = ({ name, disciplines, school }) => ({
+    name,
+    school,
+    disciplines: disciplines.map(getLetterGrades),
+});
+    
+    // "Determinar" 
+const approvedStudents = (disciplines, { approvalGrade }) =>
+  disciplines.every(({ grade }) => grade > approvalGrade);
+
+    // Atualizar
+const updateApprovalData = ({ name: studentName, disciplines }) => {
+  console.log(`A pessoa com nome ${studentName} foi aprovada!`);
+
+  disciplines.map(({ name, letterGrade }) =>
+    console.log(`${name}: ${letterGrade}`));
+};
+
+function setApproved(students) {
+  students
+    .map(percentageGradesIntoLetters)
+    .filter(({ disciplines, school }) => approvedStudents(disciplines, SCHOOL_DATA[school]))
+    .map(updateApprovalData);
+}
+module.exports = {
+    percentageGradesIntoLetters,
+    approvedStudents,
+    updateApprovalData,
+    setApproved,
+};
+
+// Single Responsibility Principle --------------------------------------------------------------------
 // Nessa segunda refatoração, segundo o eslint, há uma função com a complexidade alta,
 // logo, será refatorado novamente abaixo
+/*
 const GRADE_DICT = {
     0.9: 'A',
     0.8: 'B',
@@ -33,6 +79,7 @@ const getLetterGrades = ({ name, grade }) => ({
 });
 
 // "Converter" 
+// Não utlizada nesse momento função abaixo
 const percentageGradesIntoLetters = ({ name, disciplines, school }) => ({
   name,
   school,
@@ -45,8 +92,9 @@ const percentageGradesIntoLetters = ({ name, disciplines, school }) => ({
 module.exports = {
   getLetterGrades,
 };
+*/
 
-// Primeira refatoração do primeiro código
+// Primeira refatoração do primeiro código -----------------------------------------------------------
 // Nessa parte foram criadas 3 funções = Para Converter- Determinar - Atualizar
 /*
 // "Converter" 
@@ -96,7 +144,7 @@ module.exports = {
 };
 */
 
-/* O código abaixo não esta dentro das regras SOLID
+/* O código abaixo não esta dentro das regras SOLID ------------------------------------------------
 function setApproved(students) {
     const studentsWithLetterGrade = students.map((student) => {
       const disciplinesWithLetterGrade = student.disciplines.map((discipline) => {
