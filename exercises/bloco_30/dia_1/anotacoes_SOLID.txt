@@ -1,0 +1,44 @@
+O que exatamente é SOLID?
+
+acrônimo para cinco princípios e que de fato, se aplicados de maneira conjunta e inteligente, geram solidez e durabilidade para sua arquitetura como um todo
+
+S ingle responsibility principle ( Princípio da responsabilidade única ): uma classe deve ter apenas uma única responsabilidade;
+O pen/Closed principle ( Princípio aberto/fechado ): entidades de software devem ser abertas para extensão, mas fechadas para modificação;
+L iskov substitution principle ( Princípio de substituição de Liskov ): objetos em um programa devem ser substituíveis por instâncias de seus subtipos, sem alterar a funcionalidade do programa;
+I nterface segregation principle ( Princípio da segregação da interface ): muitas interfaces de clientes específicas são melhores do que uma para todos os propósitos;
+D ependency inversion principle ( Princípio da inversão da dependência ): deve-se depender de abstrações, não de objetos concretos.
+
+
+Conceitos da letra L e I = melhor abordados quando estamos falando de POO
+
+Conceito melhor explicado do acrônimo SOLID:
+
+S ingle responsibility principle ( Princípio da responsabilidade única ): uma classe ou função deve ter uma, e apenas uma, tarefa a realizar dentro do seu código;
+O pen/Closed principle ( Princípio aberto/fechado ): você deve ser capaz de estender um comportamento de uma função sem modificar seus comportamentos já existentes;
+L -  Nao sera visto agora
+I -  Nao sera visto agora
+D ependency inversion principle ( Princípio da inversão da dependência ): quem usa uma função deve ser capaz de determinar quais outros módulos ela usa em sua lógica.
+
+Single responsibility principle
+
+Há uma regra do ESLint (Provida pelo plugin sonarjs ) que certamente já te assombrou no passado: a regra de Complexidade Cognitiva ( sonarjs/cognitive-complexity ) . Em poucas palavras, essa regra, como outras em conjunto 
+( Complexidade Ciclomática , Número máximo de linhas por função Número máximo de caracteres por linha , entre outros) garante que nenhuma de suas funções é complicada demais. Se ela é muito grande e/ou muito confusa, a regra 
+te alerta para que deixe seu código menor e mais simples.
+
+
+Open/Closed principle
+
+o que esse princípio nos diz é o seguinte:
+Você deve ser capaz de estender um comportamento de uma função sem modificar seus comportamentos já existentes.
+
+Significa que, caso você precise acrescentar um comportamento ao seu código e isso não for possível sem mudar trechos de códigos que já existem, temos um problema. Quando um código funciona e está em produção 
+numa aplicação enorme, queremos evitar mudar o que já existe e funciona.
+
+O que se deve buscar fazer é escrever o código de modo que, no futuro, você possa acrescentar comportamentos sem mudar os que já existem .
+
+
+Dependency Inversion Principle
+
+Imagine que, no futuro, decide-se abolir o uso de fetch no seu projeto em favor do axios . Não queremos alterar o nosso código antigo (vai que ele quebra), mas código novo deve vir com a API nova.
+Inversão de dependência . Quem usa decide qual dependência a função terá.
+
