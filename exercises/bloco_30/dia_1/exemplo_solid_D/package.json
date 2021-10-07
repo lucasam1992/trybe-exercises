@@ -1,0 +1,24 @@
+{
+  "name": "exemplo_solid_D",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dipExample.js",
+  "directories": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "axios": "^0.22.0",
+    "chai": "^4.3.4",
+    "node-fetch": "^3.0.0",
+    "sinon": "^11.1.2"
+  },
+  "devDependencies": {
+    "mocha": "^9.1.2"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
