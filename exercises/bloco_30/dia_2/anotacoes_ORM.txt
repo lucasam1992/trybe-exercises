@@ -1,0 +1,46 @@
+ORM - Object Relational Mapper
+
+Técnica/camada de mapeamento que permite fazer uma relação de estruturas de dados da nossa aplicação com os dados do banco de dados que as mesmas representam
+
+Mapeamentos
+
+Data Mapper - é um padrão que realiza mapeamento
+a classe que representa a tabela do banco de dados não deve conhecer os recursos necessários para realizar as transações com o banco de dados:
+A entidade está desacoplada do banco de dados.
+Mapeador é quem faz as transações das informações com o Banco de Dados.
+
+enquanto o Mapeador está fortemente acoplado ao banco de dados e deve ser refatorado ou refeito sempre que houver mudança na estrutura do banco de dados, 
+a entidade está completamente independente - a ela não interessa como o banco de dados está. Essa complexidade é absorvida pelo mapeador.
+
+Active Record - é um padrão que realiza mapeamento
+a classe que representa a tabela conhece os recursos necessários para realizar as transações no banco de dados:
+
+No Active Record o model está diretamente acoplado ao banco de dados. Dessa forma, o nosso próprio model descreve as operações do banco de dados e tem 
+conhecimento de como salvar os dados, atualizá-los, deletá-los etc.
+
+
+Sequelize
+
+Segue a ideia do Active Record.
+A maioria dos métodos fornecidos pelo Sequelize são assíncronos e, portanto, retornam promises.
+Usando o Sequelize, você pode evitar a criação de queries SQL e utilizar models e migrations para criar as tabelas em vez de um script SQL separado.
+
+Além disso, por meio do mapeamento por objetos relacionais ( Active Record ), é possível criar as relações e associações entre as tabelas com o próprio JavaScript
+por exemplo: mudar de MySQL para o SQL server
+
+Migrações
+Uma migration é uma forma de versionar o schema do banco de dados, ou seja, cada migration conterá um pedaço de código que representa, no conjunto, 
+todas as alterações feitas no histórico do nosso banco de dados.
+as migrations têm o poder de avançar ou reverter o seu banco de dados para qualquer um dos estados que ele já teve.
+
+Seeders
+Popula o banco de dados. COm infos suficientes para que a aplicação funcione o minimo possível.
+As bibliotecas de mapeamento objeto-relacional permitem que controlemos informações que devem ser criadas assim que nosso banco de dados/tabelas forem criadas. 
+Ou seja, podemos configurar nosso banco para ser automaticamente criado e povoado!
+
+
+
+
+
+
+
