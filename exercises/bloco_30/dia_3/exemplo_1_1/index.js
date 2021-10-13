@@ -9,7 +9,13 @@ const config = require('./config/config');
 const app = express();
 app.use(bodyParser.json());
 
-const sequelize = new Sequelize(config.development);
+/*
+  Essa linha será importante para que consigamos isolar nosso teste
+  utilizando a configuração `test` do seu `config.{js | json}`
+*/
+const sequelize = new Sequelize(
+    process.env.NODE_ENV === 'test' ? config.test : config.development
+);
 
 // Exemplo para testar relacionamento N:N
 app.get('/usersbooks/:id', async (req, res) => {
