@@ -11,11 +11,23 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'Employees',
       underscored: true,
     });
+
+    //hasOne
+    //belongsTo
+    //hasMany
+    //belongsToMany
   
+  /*
     Employee.associate = (models) => {
       Employee.hasOne(models.Address,
         { foreignKey: 'employee_id', as: 'addresses' });
     };
-  
+  */
+
+    Employee.associate = ( models) => {
+      Employee.hasMany(models.Address, 
+        { foreignKey: 'employee_id', as:'addresses'});
+    };
+
     return Employee;
   };
