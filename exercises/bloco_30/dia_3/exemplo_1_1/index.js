@@ -80,7 +80,6 @@ app.get('/employees/:id', async (req, res) => {
 
 // Exemplo de Unmanaged transactions
 //é preciso indicar manualmente a circunstância em que uma transação deve ser finalizada ou revertida.
-/*
 app.post('/employees', async (req, res) => {
     // Primeiro iniciamos a transação
     const t = await sequelize.transaction();
@@ -103,7 +102,10 @@ app.post('/employees', async (req, res) => {
       // Com isso, podemos finalizar a transação usando a função `commit`.
       await t.commit();
   
-      return res.status(201).json({ message: 'Cadastrado com sucesso' });
+      return res.status(201).json({ 
+        id: employee.id, // esse dado será nossa referência para validar a transação  
+        message: 'Cadastrado com sucesso' 
+      });
     } catch (e) {
       // Se entrou nesse bloco é porque alguma operação falhou.
       // Nesse caso, o sequelize irá reverter as operações anteriores com a função rollback, não sendo necessário fazer manualmente
@@ -112,10 +114,11 @@ app.post('/employees', async (req, res) => {
       res.status(500).json({ message: 'Algo deu errado' });
     }
 });
-*/
+
 
 //Managed transactions
 //O próprio Sequelize controla quando deve finalizar ou reverter uma transação:
+/*
 app.post('/employees', async (req, res) => {
     try {
       const { firstName, lastName, age, city, street, number } = req.body;
@@ -142,6 +145,7 @@ app.post('/employees', async (req, res) => {
       res.status(500).json({ message: 'Algo deu errado' });
     }
   });
+*/
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Ouvindo na porta ${PORT}`));
