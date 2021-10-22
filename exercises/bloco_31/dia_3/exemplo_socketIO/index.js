@@ -9,11 +9,14 @@ const io = require('socket.io')(http, {
 }});
 
 io.on('connection', (socket) => { //executa sempre que um cliente se conectar no servidor
-    console.log(`Usuário conectado. ID: ${socket.id} `);
+ // console.log(`Usuário conectado. ID: ${socket.id} `);
+
+  //mandar uma mensagem para o cliente assim que ele se conectar:
+  socket.emit('ola', 'Que bom que você chegou aqui! Fica mais um cadin, vai ter bolo :)');
 
     socket.on('ping', () => {
         console.log(`${socket.id} emitiu um ping!`);
-        io.emit('pong', `${socket.id} enviou um ping!`)
+        io.emit('pong', `${socket.id} enviou um pong!`)
     });
 });
 
