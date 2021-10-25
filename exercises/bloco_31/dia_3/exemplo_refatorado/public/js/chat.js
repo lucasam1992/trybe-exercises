@@ -17,5 +17,11 @@ const createMessage = (message) => {
     messagesUl.appendChild(li);
 };
   
+//...
+window.onbeforeunload = function(event) {
+    socket.disconnect();
+};
+
+
 socket.on('serverMessage', (message) => createMessage(message)); //detecta quando o evento ServerMessage é disparado pelo back-end. 
 // Dispara a função createMessage, colocando a mensagem no front
