@@ -236,10 +236,10 @@ print("Botaro", "Cássio", sep=", ")  # nomeando o terceiro parâmetro, agora
 # temos a saída: Botaro, Cássio
 
 # Clausula help
-help("if")
+# help("if")
 
-help(abs)
+# help(abs)
 
-help(len)
+# help(len)
 
 help(math.sin)
