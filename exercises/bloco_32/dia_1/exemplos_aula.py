@@ -191,9 +191,9 @@ while last < n:
 def soma(x, y):
     return x + y
 
-    soma(2, 2)  # os parâmetros aqui são posicionais
 
-    soma(x=2, y=2)  # aqui estamos nomeando os parâmetros
+soma(2, 2)  # os parâmetros aqui são posicionais
+soma(x=2, y=2)  # aqui estamos nomeando os parâmetros
 
 # Os parâmetros também podem ser variádicos. Ou seja, podem variar em sua
 #  quantidade. Parâmetros posicionais variádicos são acessados como
@@ -212,18 +212,19 @@ def concat(*strings):
             final_string += ', '
     return final_string
 
+
 # pode ser chamado com 2 parâmetros
-    concat("Carlos", "João")  # saída: "Carlos, João"
+concat("Carlos", "João")  # saída: "Carlos, João"
 
 # pode ser chamado com um número n de parâmetros
-    concat("Carlos", "João", "Maria")  # saída: "Carlos, João, Maria"
+concat("Carlos", "João", "Maria")  # saída: "Carlos, João, Maria"
 
 # dict é uma função que já vem embutida no python
-    dict(nome="Felipe", sobrenome="Silva", idade=25)  # cria um dicionário
-    # utilizando as chaves passadas
+dict(nome="Felipe", sobrenome="Silva", idade=25)  # cria um dicionário
+# utilizando as chaves passadas
 
-    dict(nome="Ana", sobrenome="Souza", idade=21, turma=1)  # o número de
-    # parâmetros passados para a função pode variar
+dict(nome="Ana", sobrenome="Souza", idade=21, turma=1)  # o número de
+# parâmetros passados para a função pode variar
 
 
 # len([1, 2, 3, 4])  # função len não aceita argumentos nomeados
