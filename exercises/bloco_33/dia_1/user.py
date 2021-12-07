@@ -1,22 +1,38 @@
+import smtplib
+import ssl
+
+
 class User:
     def __init__(self, name, email, password):
-        """ Método construtor da classe User. Note que
-        o primeiro parâmetro deve ser o `self`. Isso é
-        uma particularidade de Python, vamos falar mais
-        disso adiante!"""
         self.name = name
         self.email = email
         self.password = password
 
     def reset_password(self):
-        print("Envia email de reset de senha")
+        meu_mailer = Mailer
+        ("password_reset@teste.com", "myverysafepassword", self.email)
+        meu_mailer.send_email
+        ("Reset your password", "Instruções p/ resetar senha,com link d reset")
 
-# Para invocar o método construtor, a sintaxe é
-# NomeDaClasse(parametro 1, parametro 2)
-# Repare que o parâmetro self foi pulado -- um detalhe do Python.
+
+class Mailer:
+    def __init__(self, from_email, from_password, to_email):
+        self.from_email = from_email
+        self.from_password = from_password
+        self.to_email = to_email
+
+    def send_email(self, subject, message):
+        body = f"Subject:{subject}\n\n{message}".encode('utf-8')
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(
+            "smtp.gmail.com", 465, context=context
+        ) as server:
+            server.login(self.from_email, self.from_password)
+            try:
+                server.sendmail(self.from_email, self.to_email, body)
+            except (smtplib.SMTPRecipientsRefused, smtplib.SMTPSenderRefused):
+                raise ValueError
 
 
 meu_user = User("Valentino Trocatapa", "valentino@tinytoons.com", "Grana")
-# A variável `meu_user` contém o objeto criado pelo construtor da classe User
-
 meu_user.reset_password()
