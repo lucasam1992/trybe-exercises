@@ -1,0 +1,21 @@
+Modelo de Rede
+- **Modelo ISO/OSI:**
+    - foi lançado com o objetivo de ser um padrão entre os diversos dispositivos de comunicação. Esse modelo divide as redes de computadores em 7 camadas (de baixo para cima):
+        - **1. Física:** Estabelece a comunicação entre os dispositivos no sentido físico. Responsável pelo cabeamento, pelas características elétricas como tensão, ópticas (quando se der por meio óptico) ou eletromagnéticas em uma rede sem fio. Tudo isso garantindo que ocorra a transmissão dos dados pelos meios físicos (hardware), sem perder `0` s e `1` s.
+        - **2. Enlace:** Também chamada de "link de dados", essa camada é responsável pela detecção e eventualmente pela correção de erros que tenham ocorrido no nível físico. Ela também realiza o controle do fluxo da transmissão entre um dispositivo e outro.
+        - **3. Rede:** Responsável pelo endereçamento dos dispositivos na rede, assim como pela rota (caminho) que os pacotes deverão percorrer para chegarem da origem até destino.
+        - **4. Transporte:** Responsável pela detecção e correção de erros que tenham ocorrido nas camadas anteriores, assim como pela ordenação, garantindo que os dados saídos da origem sejam os mesmos no destino. Além disso, ela define a conexão que será usada e como estabelecê-la, assim como controla o fluxo e congestionamento de dados.
+        - **5. Sessão:** Responsável pela comunicação entre dois processos que estão em máquinas diferentes, controlando o status, definindo quando deve começar, terminar ou reiniciar a comunicação entre origem e destino.
+        - **6. Apresentação:** Responsável pela conversão entre os formatos de caracteres para que possam ser utilizados na transmissão, também responsável pela compressão e criptografia desses dados.
+        - **7. Aplicação:** Essa camada é responsável pelo controle da sintaxe e da semântica da mensagem, traduzindo de fato as informações trafegadas.
+        
+- **Modelo Internet - TCP/IP**
+    - Uma das implementações do modelo OSI é a TCP/IP, que é um conjunto de protocolos de comunicação: TCP ( *Transmission Control Protocol* Protocolo de Controle de Transmissão) e o IP ( *Internet Protocol* Protocolo de Internet).
+        - O TCP/IP define 4 camadas mesclando as 7 do modelo OSI:
+            - **Aplicação:** A camada de aplicação contém os protocolos responsáveis por dar significado às informações, sendo a primeira camada passada para a mensagem;
+            - **Transporte:** A camada de transporte, como o próprio nome indica, é a camada responsável pela transferência de dados entre diferentes máquinas (seja um servidor ou um computador pessoal). Os principais protocolos dessa camada são o **TCP** e o **UDP** .
+                - TCP**:** Garante a entrega dos pacotes;
+                - UDP: Não garante entrega dos pacotes = maior velocidade na transmissão dos pacotes = usado em videos online
+            - **Rede:** O principal protocolo utilizado nessa camada é o **IP - Internet Protocol** , que inclusive dá nome ao modelo. Outras opções de protocolos dessa camada temos o ICMP, NAT, ARP. Todos eles lidam com o endereçamento da comunicação. A camada de rede do TCP/IP é utilizada para isso. Ela irá identificar o remetente e o destinatário para que o pacote possa ser transmitido na rede.
+                - DNS: (Domain Name System – Sistema de nome de domínio) converte nomes de domínio legíveis por humanos (por exemplo, www.amazon.com) em endereços IP legíveis por máquina (por exemplo, 192.0.2.44).
+            - **Interface / Acesso ao Meio:** A principal função dessa camada é realizar a interface do modelo TCP/IP com os diversos modelos de rede, por exemplo o protocolo *Ethernet* , transmitindo os dados através dos meios físicos, encontrando e transmitindo tudo pelo melhor caminho possível. Esta camada lida com os meios de comunicação, corresponde ao nível de hardware, ou meio físico, que trata dos sinais eletrônicos, conector, pinagem, níveis de tensão, dimensões físicas, características mecânicas e elétricas, etc.
