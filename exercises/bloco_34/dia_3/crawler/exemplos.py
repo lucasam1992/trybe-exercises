@@ -29,6 +29,6 @@ response = requests.get("http://httpbin.org/get")
 # Equivalente ao json.loads(response.content)
 print(response.json())
 
-# Podemos também pedir que a resposta lance uma exceção caso o status não sejao OK
+# Podemos também pedir que a resposta lance uma exceção caso o status não seja OK
 response = requests.get("http://httpbin.org/status/404")
 response.raise_for_status()
