@@ -1,0 +1,90 @@
+Ordem de Complexidade 
+
+A Ordem de Complexidade pode ser chamada, também, de Complexidade Assintótica.
+
+quanto que o tempo de execução do algoritmo varia na medida em que a entrada cresce!
+ex:
+
+# def sum_array(numbers):
+  # ...
+
+sum_array(array_com_dez_mil_numeros)
+# O tempo de execução deste algoritmo foi 0.0004s
+
+sum_array(array_com_cem_mil_numeros)
+# Para uma execução com dez vezes mais números, o tempo aumentou em dez vezes: 0.004s
+
+sum_array(array_com_um_milhão_de_numeros)
+# Multiplicando o tamanho da entrada por dez novamente, temos um tempo dez vezes maior: 0.05s
+
+Os valores podem variar, mas as proporções não! Um aumento no tamanho da entrada aumenta o tempo de execução na mesma proporção
+
+A função matemática que representa uma relação linear é f(n) = n . Na notação de Ordem de Complexidade, dizemos que esse algoritmo é O(n)
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Complexidade de tempo e de espaço
+
+Ordem de Complexidade, estamos falando disso: do tempo que o algoritmo vai demorar para executar, ou complexidade de tempo . Há também uma outra complexidade: a complexidade de espaço , se referindo ao espaço em memória que o algoritmo ocupa.
+
+**Se falamos em Ordem de Complexidade sem especificar se é de tempo ou de memória, assuma que é de tempo!
+
+Para qualquer tamanho de entrada ele ocupa a mesma quantidade de espaço para executar. Assim sendo, sua complexidade de espaço é constante .
+
+Uma complexidade, seja de memória ou de tempo, ser constante, significa que o tamanho da entrada não influi no tempo de execução/memória ocupada de um algoritmo. A notação para esta complexidade é O(1)
+
+**Quando calculamos a complexidade de espaço não levamos em consideração o espaço ocupado pela entrada! O tamanho da entrada não é algo que podemos, com nosso algoritmo, influenciar, então ele não entra em nossos cálculos.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Complexidade Quadrática
+
+Temos dois arrays do mesmo tamanho, que vamos chamar de n . Repare que temos dois loops aninhados um dentro do outro. Isso significa que, para cada número de array1 , todo o array2 será percorrido! 
+
+número de iterações é n vezes n , ou seja, n² 
+
+Por isso, lá em cima, multiplicar por dois o tamanho da entrada, de 2000 para 4000, multiplicou por quatro o tempo de execução: para um algoritmo O(n²) , aumentar a entrada em n vezes, aumenta o tempo de execução em n² vezes!
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Comparando complexidades
+
+A Ordem de Complexidade diz o quanto o tempo de execução (ou espaço de memória ocupado) de um algoritmo cresce, na medida em que aumentamos o tamanho da sua entrada!
+
+Uma O(1) executa no mesmo tempo independente do tamanho da entrada. Como exemplo, lembre-se do acesso a um elemento do array , estudado na aula de ontem. Esse acesso é O(1) , pois leva o mesmo tempo, independente do tamanho do array;
+
+Uma O(n) significa que o algoritmo é linear : se aumentamos a entrada em 2 vezes , aumentamos o tempo de execução em 2 vezes ;
+
+Uma O(n²) significa que o algoritmo é quadrático : se aumentamos a entrada em 2 vezes , aumentamos o tempo de execução em 4 (2²) vezes ;
+
+Uma O(n³) significa que o algoritmo é cúbico : se aumentamos a entrada em 2 vezes , aumentamos o tempo de execução em 8 (2³) vezes .
+
+tempo de execução de um algoritmo cúbico cresce muito mais para uma entrada muito menor que a do algoritmo linear:
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Complexidade logarítmica
+
+O tempo de execução de um algoritmo é dito logarítmico porque log₂n (lê-se: "log de n na base 2") nos dá o número de iterações que uma entrada de tamanho n terá no algoritmo.
+
+algoritmo de busca binária. Dado um array de tamanho n ordenado em ordem crescente, encontre um número passado na entrada . É como procurar por um nome numa lista telefônica!
+
+a cada iteração, o algoritmo de busca binária corta o problema pela metade: primeiro ele corta a lista em dois e pega o elemento do meio. Depois ele vai para o lado onde o elemento que procura está e corta este lado novamente pela metade. Quando cortamos a entrada pela metade, a cada iteração, temos um padrão que segue a função matemática de logaritmo na base dois! Assim, nosso algoritmo é O(log n) .
+
+Um logaritmo em base 2 representa o número de vezes que um valor deve ser dividido pela metade para obter 1.
+
+Quando a entrada é cortada pela metade a cada iteração temos um comportamento logarítmico!
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Complexidade exponencial e fatorial
+
+
+
+
+
+
+
+
+
