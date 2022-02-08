@@ -108,7 +108,24 @@ class LinkedList:
     def is_empty(self):
         return not self.__length
 
+# exercicio 1 -a: criação da função clear():
+# responsavel por remover todos os Nodes da lista
+    def clear(self):
+        while not self.is_empty():
+            self.remove_first()
 
+# exercicio 1 -b: criação da função __get_node_at:
+# responsavel por acessar o Node em qualquer posição da lista
+    def __get_node_at(self, position):
+        value_to_be_returned = self.head_value
+        if value_to_be_returned:
+            while position > 0 and value_to_be_returned.next:
+                value_to_be_returned = value_to_be_returned.next
+                position -= 1
+        return value_to_be_returned
+
+
+# testando cada método
 if __name__ == "__main__":
     linked_list = LinkedList()
 
@@ -136,8 +153,11 @@ if __name__ == "__main__":
     # linked_list.remove_at(0)
     # print(linked_list)
 
-    linked_list.insert_at(6, 1)
-    linked_list.insert_at(7, 2)
-    linked_list.insert_at(8, 3)
-    linked_list.insert_at(9, 4)
-    print(linked_list.get_element_at(3))
+    # linked_list.insert_at(6, 1)
+    # linked_list.insert_at(7, 2)
+    # linked_list.insert_at(8, 3)
+    # linked_list.insert_at(9, 4)
+    # print(linked_list.get_element_at(3))
+
+    # linked_list.clear()
+    # print(linked_list)
