@@ -1,0 +1,93 @@
+- **Docker**: conjunto de ferramentas (Dameon, API, CLI) para gerenciar imagens e containers.
+- Arquivo **Dockerfile**: arquivo com linguagem própria, com os passos necessários para criar uma nova imagem Docker usando o código-fonte de um projeto.
+- **Imagem Docker**: é o projeto “compactado”, que foi construído de acordo com os passos contidos no arquivo Dockerfile. Pode ser usado como base para criar novas imagens Docker.
+- **Container**: é a execução de projeto através da sua imagem Docker já construída anteriormente.
+- **Registry**: é o local remoto onde podemos enviar e baixar imagens Docker. Um registry pode ser público ou privado.
+- **Docker Hub**:
+    - É o registry oficial da empresa *Docker Inc*.
+    - Ele é público, porém possui alguns limites.
+    - É possível assinar o serviço para utilizá-lo como registry privado.
+
+---
+
+- Para consultar o status do daemon do Docker, execute:
+    - sudo systemctl status docker
+- Caso o parâmetro *Active* esteja como `stop/waiting`ou no nosso caso, como `inactive`, rode o comando `start`para iniciá-lo:
+    - sudo systemctl start docker
+- Para validar se tudo ocorreu como deveria na instalação, vamos executar um *hello world* 
+* do Docker:
+    - docker run hello-world
+- os comandos do *Docker* funcionam no seguinte formato:
+    - docker <comando> <sub-comando> <parâmetros>
+        - docker container run <nome-da-imagem>:<tag> ⇒ docker container run ubuntu
+- Listando containers
+    - docker container ls
+    - Mostar todos os containers, até mesmo os inativos:
+        - docker container ls -a
+    - Mostrar apenas o ultimo container criado:
+        - docker container ls -l
+
+- **CONTAINER ID:** Identificador único*;
+- **IMAGE:** O nome da imagem utilizada para a criação do `container` ;
+- **COMMAND:** O comando executado/ em execução dentro do `container` ;
+- **CREATED:** Quando foi criado o `container` ;
+- **STATUS:** O *status* atual do mesmo, no nosso caso, encerrado;
+- **PORT:** A porta que estamos utilizando para nos comunicar com o container**;
+- **NAMES:** O apelido do `container` , como não definimos nenhum, foi criado um aleatório.
+
+- Rodando um comando adicional antes de terminar o container:
+    - Para executar comandos no terminal do `container`é só adiciona-los no final da execução do `run`, conforme o modelo:
+        - docker container run <nome-da-imagem>:<tag> <comando> <argumentos-do-comando> ⇒ docker container run ubuntu echo 'Hello Tryber!’
+- Rodando o `container` de forma interativa
+    - E se quisermos, por exemplo, utilizar um terminal dentro do `container`*(à la inception)* ? É só passar o parâmetro `-ti`  * ao comando `run`que dá acesso a esse terminal*:
+        - docker container run -ti ubuntu
+            - `t` que indica pro docker que estamos requisitando um terminal no `container` que consiga imprimir o retorno dos nossos comandos;
+            - `i` que estabelece uma interface de comunicação física com esse terminal, no caso, por meio do teclado.
+- Criar e rodar um container
+    - criar um novo `container` e roda-lo logo em seguida:
+        - docker container run <parâmetros> <imagem>:<tag>
+    - O parâmetro `--name` define um `<nome-da-sua-escolha>` para aquele `container`*(ao invés de um nome aleatório)*
+        - docker container run --name <nome-da-sua-escolha> <imagem>:<tag>
+    - **Modo 'Cleanup':** O parâmetro `--rm`deve garantir que o `container`seja removido ao final da execução *(útil para testar imagens sem ficar acumulando `containers` novos):*
+        - docker container run --rm <imagem>:<tag>
+    - O parâmetro `-d`(de `--detach`, *desacoplado* em português) rodará esse `container`em segundo plano*:
+        - docker container run -d <imagem>:<tag>
+    - *(Comando antigo)* * Abreviação do comando `docker container run`:
+        - docker run <parâmetros> <imagem>:<tag>
+- Criar um `container` sem executá-lo:
+    - Cria um `container`com a imagem de referência, mas não o executa imediatamente:
+        - docker container create <parâmetros> <imagem>:<tag>
+    - O parâmetro `-it` nesse contexto, deve garantir que ao iniciar o `container`, ele se mantenha ativo e disponha de um terminal de acesso:
+        - docker container create -it <imagem>:<tag>
+    - *(Comando antigo)* Abreviação do comando `docker container create`:
+        - docker create <parâmetros> <imagem>:<tag>
+- Iniciar, reiniciar, pausar, resumir e parar um container:
+    - docker container start <CONTAINER ID || NAMES>
+        - Note que o comando `start`difere do comando `run` . O `start` apenas inicia o `container` que já havia sido criado (mas estava inativo), enquanto o `run` cria e executa um novo container!
+    - Reinicia um `container` usando as referências citadas anteriormente:
+        - docker container restart <CONTAINER ID || NAMES>
+    - Pausa um `container`usando as referências citadas anteriormente:
+        - docker container pause <CONTAINER ID || NAMES>
+    - Tira um `container`do modo de pausa usando as referências citadas anteriormente:
+        - docker container unpause <CONTAINER ID || NAMES>
+    - Encerra um `container`usando as referências citadas anteriormente:
+        - docker container stop <CONTAINER ID || NAMES>
+    - *(Comando antigo)* São abreviações para os comandos anteriores:
+        - docker <start || restart || pause || unpause || stop> <CONTAINER ID || NAMES>
+- Retomando o acesso a um `container` interativo rodando em segundo plano
+    - Caso você tenha iniciado um `container`em segundo plano utilizando `-dit`, você pode acessar esse `container` rodando o comando `attach`:
+        - docker container attach <CONTAINER ID || NAMES>
+    - Abreviação do comando `docker container attach <CONTAINER ID || NAMES>`:
+        - docker attach <CONTAINER ID || NAMES>
+    - Excluindo `containers` específicos:
+        - Se o `container`não estiver ativo, esse comando deve remover o mesmo:
+            - docker container rm <CONTAINER ID || NAMES>
+        - Se o `container` estiver ativo, você deve passar o parâmetro `-f`*(forçar)* para parar sua execução e depois efetuar a remoção:
+            - docker container rm -f <CONTAINER ID || NAMES>
+        - *(Comando antigo)* Abreviação do comando `docker container rm`:
+            - docker rm <CONTAINER ID || NAMES>
+- Limpando `containers` que não estão sendo utilizados
+    - docker container prune
+- Monitorando os processos dentro de um container
+    - O comando `top`, assim como nos terminais linux, traz as informações sobre os processos que estão sendo rodados, **mas dentro daquele `container`** , o que não inclui, por exemplo, serviços que são compartilhados com o sistema hospedeiro. Ele é útil para quando estamos os rodando em segundo plano:
+        - docker container top <CONTAINER ID || NAMES>
