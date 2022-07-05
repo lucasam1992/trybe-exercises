@@ -1,21 +1,41 @@
-version: '3'
+# Criando Redes Virtuais
+version: "3"
 services:
   frontend:
-    build: frontend/   # Especificamos o contexto, ou seja, a pasta onde está o Dockerfile.
-    restart: on-failure
+    build: frontend/
+    restart: always
     ports:
       - 3000:3000
     depends_on:
       - backend
+    volumes:
+      - ./logs:/var/log/frontend
+    networks: # Para o front-end, declaramos que ele está presente na rede-virtual-1;
+      - rede-virtual-1
   backend:
-    build: backend/    # Mesmo caso aqui.
-    restart: on-failure
+    build: backend/
+    restart: always
     ports:
       - 3001:3001
     environment:
       - DB_HOST=database
     depends_on:
       - database
+    networks: # Para o back-end, declaramos que ele está presente na rede-virtual-1 e na rede-virtual-2;
+      - rede-virtual-1
+      - rede-virtual-2
   database:
-    image: betrybe/docker-compose-example-database:v1 # Especificamos a Imagem Docker diretamente.
-    restart: on-failure
+    image: betrybe/docker-compose-example-database:v1
+    restart: always
+    volumes:
+      - dados-do-banco:/data/db
+    networks: # Para o database, declaramos que ele está presente na rede-virtual-2.
+      - rede-virtual-2
+
+volumes:
+  dados-do-banco:
+
+networks:             
+  rede-virtual-1:     # nome de novas redes virtuais
+  rede-virtual-2:     # As redes virtuais permitem criar isolamento entre os serviços;
+  # Ao utilizar esta chave, o Compose não vai mais criar a rede virtual padrão, como estava fazendo antes!
