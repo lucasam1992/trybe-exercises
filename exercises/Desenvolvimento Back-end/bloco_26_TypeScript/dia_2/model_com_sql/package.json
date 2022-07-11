@@ -4,7 +4,9 @@
   "description": "",
   "main": "main.js",
   "dependencies": {
-    "mysql2": "^2.3.3"
+    "@types/readline-sync": "^1.4.4",
+    "mysql2": "^2.3.3",
+    "readline-sync": "^1.4.10"
   },
   "devDependencies": {
     "@tsconfig/node14": "^1.0.3",
