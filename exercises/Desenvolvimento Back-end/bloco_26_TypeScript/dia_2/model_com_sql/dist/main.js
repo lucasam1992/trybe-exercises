@@ -12,10 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const readline_sync_1 = __importDefault(require("readline-sync"));
+const Books_1 = __importDefault(require("./models/Books"));
 const connection_1 = __importDefault(require("./models/connection"));
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield connection_1.default.execute('SELECT * FROM books');
-    const [rows] = result;
-    console.log(rows);
+    const bookModel = new Books_1.default(connection_1.default);
+    const title = readline_sync_1.default.question('Digite o título do livro: ');
+    const price = readline_sync_1.default.questionFloat('Digite o preço do livro: ');
+    const author = readline_sync_1.default.question('Digite o autor do livro: ');
+    const isbn = readline_sync_1.default.question('Digite o isbn do livro: ');
+    const newBook = { title, price, author, isbn };
+    const createdBook = yield bookModel.create(newBook);
+    console.log(createdBook);
+    const books = yield bookModel.getAll();
+    console.log(books);
 });
 main();
