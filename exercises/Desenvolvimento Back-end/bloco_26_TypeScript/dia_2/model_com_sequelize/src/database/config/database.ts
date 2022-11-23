@@ -1,4 +1,5 @@
 // import 'dotenv/config';
+// testes para ssh key
 import { Options } from 'sequelize';
 
 const config: Options = {
