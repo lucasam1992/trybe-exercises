@@ -24,7 +24,6 @@ class BookModel {
     create(book) {
         return __awaiter(this, void 0, void 0, function* () {
             const { title, price, author, isbn } = book;
-            console.log(book);
             const result = yield this.connection.execute('INSERT INTO books (title, price, author, isbn) VALUES (?, ?, ?, ?)', [title, price, author, isbn]);
             const [dataInserted] = result;
             const { insertId } = dataInserted;
@@ -37,6 +36,17 @@ class BookModel {
             const [rows] = result;
             const [book] = rows;
             return book;
+        });
+    }
+    update(id, book) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { title, price, author, isbn } = book;
+            yield this.connection.execute('UPDATE books SET title=?, price=?, author=?, isbn=? WHERE id=?', [title, price, author, isbn, id]);
+        });
+    }
+    remove(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.connection.execute('DELETE FROM books WHERE id=?', [id]);
         });
     }
 }

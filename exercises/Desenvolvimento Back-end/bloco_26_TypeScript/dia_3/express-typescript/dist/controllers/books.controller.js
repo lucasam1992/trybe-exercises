@@ -20,6 +20,8 @@ class BooksController {
         this.getAll = this.getAll.bind(this);
         this.getById = this.getById.bind(this);
         this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
+        this.remove = this.remove.bind(this);
     }
     getAll(_req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -45,6 +47,21 @@ class BooksController {
             const book = req.body;
             const bookCreated = yield this.bookService.create(book);
             res.status(statusCodes_1.default.CREATED).json(bookCreated);
+        });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = Number(req.params.id);
+            const book = req.body;
+            yield this.bookService.update(id, book);
+            res.status(statusCodes_1.default.NO_CONTENT).end();
+        });
+    }
+    remove(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = Number(req.params.id);
+            yield this.bookService.remove(id);
+            res.status(statusCodes_1.default.NO_CONTENT).end();
         });
     }
 }
