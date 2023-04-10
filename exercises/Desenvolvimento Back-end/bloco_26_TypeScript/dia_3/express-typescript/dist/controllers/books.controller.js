@@ -18,6 +18,8 @@ class BooksController {
     constructor(bookService = new books_service_1.default()) {
         this.bookService = bookService;
         this.getAll = this.getAll.bind(this);
+        this.getById = this.getById.bind(this);
+        this.create = this.create.bind(this);
     }
     getAll(_req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -26,5 +28,24 @@ class BooksController {
         });
     }
     ;
+    getById(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = parseInt(req.params.id, 10);
+            const book = yield this.bookService.getById(id);
+            if (!book) {
+                res.status(statusCodes_1.default.NOT_FOUND).json({ message: 'Book not found!' });
+            }
+            else {
+                res.status(statusCodes_1.default.OK).json(book);
+            }
+        });
+    }
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const book = req.body;
+            const bookCreated = yield this.bookService.create(book);
+            res.status(statusCodes_1.default.CREATED).json(bookCreated);
+        });
+    }
 }
 exports.default = BooksController;

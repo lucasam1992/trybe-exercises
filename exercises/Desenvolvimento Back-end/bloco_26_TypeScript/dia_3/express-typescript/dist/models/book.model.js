@@ -1,5 +1,4 @@
 "use strict";
-// ./models/book.model.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -25,10 +24,19 @@ class BookModel {
     create(book) {
         return __awaiter(this, void 0, void 0, function* () {
             const { title, price, author, isbn } = book;
+            console.log(book);
             const result = yield this.connection.execute('INSERT INTO books (title, price, author, isbn) VALUES (?, ?, ?, ?)', [title, price, author, isbn]);
             const [dataInserted] = result;
             const { insertId } = dataInserted;
             return Object.assign({ id: insertId }, book);
+        });
+    }
+    getById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.connection.execute('SELECT * FROM books WHERE id=?', [id]);
+            const [rows] = result;
+            const [book] = rows;
+            return book;
         });
     }
 }
