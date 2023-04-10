@@ -27,4 +27,11 @@ export default class BookModel {
     const { insertId } = dataInserted;
     return { id: insertId, ...book };
   }
+
+  async getById(id: number): Promise<Book> {
+    const result = await this.connection.execute('SELECT * FROM books WHERE id=?', [id]);
+    const [rows] = result;
+    const [book] = rows as Book[];
+    return book;
+  }
 }
