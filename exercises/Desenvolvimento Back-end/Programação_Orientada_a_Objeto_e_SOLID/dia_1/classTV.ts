@@ -13,7 +13,7 @@ class TV {
     }
 
     turnOn(): void {
-        console.log(`${this.brand, this.size, this.resolution, this.connections}`);
+        console.log(`${this.brand}, ${this.size}, ${this.resolution}, ${this.connections}`);
     }
 }
 
