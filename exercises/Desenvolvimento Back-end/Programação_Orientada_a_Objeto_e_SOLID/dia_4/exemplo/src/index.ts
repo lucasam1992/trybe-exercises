@@ -146,4 +146,5 @@ export {
     approvedStudents,
     updateApprovalData,
     setApproved,
+    getLetterGrades,
 };
