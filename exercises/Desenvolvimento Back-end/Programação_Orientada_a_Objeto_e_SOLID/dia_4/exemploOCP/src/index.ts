@@ -79,3 +79,8 @@ const studentsExample = [
 ];
 
 setApproved(studentsExample);
+
+export {
+  percentageGradesIntoLetters,
+  approvedStudents,
+}
