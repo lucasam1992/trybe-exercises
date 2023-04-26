@@ -11,8 +11,6 @@ class Passenger {
   }
   
   class Flight {
-    
-      
     // constructor(public num: number, public passengers: Passenger[]) { }
     constructor(public num: number, public payload:(Passenger | ShippedItem)[]){}
   
