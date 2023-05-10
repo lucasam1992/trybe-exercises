@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { Model } from 'mongoose';
-import IPayment from '../../../src/Interfaces/IPayment';
+import IPayment from '../../../src/Interface/IPayment';
 import TransferService from '../../../src/Services/TransferService';
 import Payment from '../../../src/Domain/Payment';
 
