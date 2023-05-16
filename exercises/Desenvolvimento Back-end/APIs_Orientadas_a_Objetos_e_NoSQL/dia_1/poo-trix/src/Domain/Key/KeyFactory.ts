@@ -3,6 +3,7 @@ import KeyTypes from '../../utils/KeyTypes';
 import CPF from './CPF';
 import PhoneNumber from './PhoneNumber';
 import IValid from '../../Interface/IValid';
+import Mail from './Mail';
 
 class KeyFactory { 
     // metodo static, que permitirá a criação de uma chave sem a necessidade de uma instancia do objeto KeyFactory 
@@ -12,6 +13,9 @@ class KeyFactory {
         }
         if (key.type === KeyTypes.PHONE_NUMBER) {
             return new PhoneNumber(key.value, key.owner);
+        }
+        if (key.type === KeyTypes.MAIL) {
+            return new Mail(key.value, key.owner);
         }
         throw new Error('Invalid key type');
     }
