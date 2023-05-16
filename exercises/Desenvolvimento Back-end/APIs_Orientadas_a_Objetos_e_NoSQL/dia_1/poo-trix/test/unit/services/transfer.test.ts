@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import IPayment from '../../../src/Interface/IPayment';
 import TransferService from '../../../src/Services/TransferService';
 import Payment from '../../../src/Domain/Payment';
+import PaymentStatus from '../../../src/utils/PaymentStatus';
 
 describe('Deveria criar uma transferência TRIX', function () {
     it('Deveria criar uma transferência TRIX com SUCESSO', async function () {
@@ -20,6 +21,7 @@ describe('Deveria criar uma transferência TRIX', function () {
         50000,
         '858.898.670-16',
         '63319d80feb9f483ee823ac5',
+        PaymentStatus.concluded,
       );
       sinon.stub(Model, 'create').resolves(paymentOutput);
 
@@ -37,7 +39,7 @@ describe('Deveria criar uma transferência TRIX', function () {
           payByPerson: 'Jobs',
           payToPerson: 'Wozniak',
           amount: 50000,
-          key: '858.898.670-16XX', // 👀 observe que estamos passando um CPF inválido para capturar a exceção!
+          key: '858.898.670-16XX',
         };
 
         sinon.stub(Model, 'create').resolves({});
