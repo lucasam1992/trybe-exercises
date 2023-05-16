@@ -1,4 +1,4 @@
-import { Model, Schema, model, models } from 'mongoose';
+import { Model, Schema, model, models, UpdateQuery, isValidObjectId } from 'mongoose';
 import IPayment from '../Interface/IPayment';
 
 class PaymentODM {
@@ -17,6 +17,16 @@ class PaymentODM {
 
     public async create(payment: IPayment): Promise<IPayment> {
         return this.model.create({...payment});
+    }
+
+    public async update(id: string, obj: Partial<IPayment>): Promise<IPayment | null> {
+        if(!isValidObjectId(id)) throw Error('Invalid Mongo id');
+
+        return this.model.findByIdAndUpdate(
+            { _id: id},
+            { ...obj } as UpdateQuery<IPayment>,
+            { new: true},
+        );
     }
 }
 
