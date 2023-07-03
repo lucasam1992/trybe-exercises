@@ -3,6 +3,8 @@ import loginService from '../services/login.service';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
 
 async function login(req: Request, res: Response) {
+  console.log(req.body);
+  
   const serviceResponse = await loginService.verifyLogin(req.body);
 
   if (serviceResponse.status !== 'SUCCESSFUL') {
