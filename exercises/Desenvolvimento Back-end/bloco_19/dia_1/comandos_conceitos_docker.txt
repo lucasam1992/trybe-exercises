@@ -8,7 +8,7 @@
     - Ele é público, porém possui alguns limites.
     - É possível assinar o serviço para utilizá-lo como registry privado.
 
----
+--
 
 - Para consultar o status do daemon do Docker, execute:
     - sudo systemctl status docker
